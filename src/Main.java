@@ -2,6 +2,8 @@ import interpreter.Expression;
 import interpreter.Interpreter;
 import memento.History;
 import memento.TextEditor;
+import observer.NewsAgency;
+import observer.NewsChannel;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,5 +25,19 @@ public class Main {
 
         textEditor.restore(history.undo());
         System.out.println("Undo: " + textEditor.getText());
+
+        System.out.println("---------------------------------------------------------------");
+
+        NewsAgency newsAgency = new NewsAgency();
+
+        NewsChannel NYT = new NewsChannel("NYT");
+        NewsChannel Qazaqstan = new NewsChannel("Qazaqstan");
+
+        newsAgency.addObserver(NYT);
+        newsAgency.addObserver(Qazaqstan);
+
+        newsAgency.setNews("Assignment 4 done !!!");
+        newsAgency.removeObserver(NYT);
+        newsAgency.setNews("NYT deleted!");
     }
 }
